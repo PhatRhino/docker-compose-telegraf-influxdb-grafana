@@ -1,12 +1,13 @@
-# docker-compose-influxdb-grafana
+# docker-compose-telegraf-influxdb-grafana
 
 Multi-container Docker app built from the following services:
 
+* [Telegraf](https://github.com/influxdata/telegraf) - agent for collecting, processing, aggregating, and writing metrics.
 * [InfluxDB](https://github.com/influxdata/influxdb) - time series database
 * [Chronograf](https://github.com/influxdata/chronograf) - admin UI for InfluxDB
 * [Grafana](https://github.com/grafana/grafana) - visualization UI for InfluxDB
 
-Useful for quickly setting up a monitoring stack for performance testing. Combine with [serverless-artillery](https://github.com/Nordstrom/serverless-artillery) and [artillery-plugin-influxdb](https://github.com/Nordstrom/artillery-plugin-influxdb) to create a performance testing environment in minutes.
+Useful for quickly setting up a Model Driven Telemetry stack.
 
 ## Quick Start
 
@@ -35,6 +36,7 @@ The services in the app run on the following ports:
 | - | - |
 | 3000 | Grafana |
 | 8086 | InfluxDB |
+| 57000, 57100, 57500 | Telegraf |
 | 127.0.0.1:8888 | Chronograf |
 
 Note that Chronograf does not support username/password authentication. Anyone who can connect to the service has full admin access. Consequently, the service is not publically exposed and can only be access via the loopback interface on the same machine that runs docker.
