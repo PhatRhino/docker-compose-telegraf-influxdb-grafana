@@ -18,7 +18,7 @@ services:
     container_name: influxdb
     restart: always
     ports:
-      - 8086:8086
+      - '8086:8086'
     environment:
       - INFLUXDB_DB=telemetry
       - INFLUXDB_USER=admin
