@@ -47,11 +47,7 @@ ssh [options] <user>@<docker-host> -L 8888:localhost:8888 -N
 
 ## Volumes
 
-The app creates the following named volumes (one for each service) so data is not lost when the app is stopped:
-
-* influxdb-storage
-* chronograf-storage
-* grafana-storage
+No volume is created. Data is  lost when the app is stopped.
 
 ## Users
 
@@ -64,11 +60,11 @@ The app creates two admin users - one for InfluxDB and one for Grafana. By defau
 
 ## Database
 
-The app creates a default InfluxDB database called `db0`.
+The app creates a default InfluxDB database called `telemetry`.
 
 ## Data Sources
 
-The app creates a Grafana data source called `InfluxDB` that's connected to the default IndfluxDB database (e.g. `db0`).
+The app creates a Grafana data source called `InfluxDB` that's connected to the default IndfluxDB database (e.g. `telemetry`).
 
 To provision additional data sources, see the Grafana [documentation](http://docs.grafana.org/administration/provisioning/#datasources) and add a config file to `./grafana-provisioning/datasources/` before starting the app.
 
