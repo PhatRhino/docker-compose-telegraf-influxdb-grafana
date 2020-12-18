@@ -72,6 +72,66 @@ The app creates a Grafana data source called `InfluxDB` that's connected to the 
 
 To provision additional data sources, see the Grafana [documentation](http://docs.grafana.org/administration/provisioning/#datasources) and add a config file to `./grafana-provisioning/datasources/` before starting the app.
 
+## Sample router configuration
+
+Model Driven Telemetry must be configured on your router to export counters. This is done in 3 steps:
+
+1. Configure a sensor-group to list metrics to collect
+1. Configure a destination-group to export metrics (IP of the server hosting the application, protocol is TCP or gRPC)
+1. Configure a subscription-group to bind sensors to collectors and specify export frequency.
+
+```
+telemetry model-driven
+ destination-group COLLECTOR
+  address-family ipv4 10.60.11.193 port 57100
+   encoding self-describing-gpb
+   protocol tcp
+   
+ sensor-group POWER-COUNTERS
+  sensor-path Cisco-IOS-XR-sysadmin-envmon-ui:environment/oper
+  sensor-path Cisco-IOS-XR-sysadmin-fretta-envmon-ui:environment/oper/power
+  
+ subscription SUBSCRIPTION
+  sensor-group-id POWER-COUNTERS sample-interval 30000
+  destination-id COLLECTOR
+```
+
+You can check router exports counters:
+
+```
+RP/0/RP0/CPU0:ROUTER#sh telemetry model-driven destination COLLECTOR
+Fri Dec 18 16:53:04.763 CET
+  Destination Group:  COLLECTOR
+  -----------------
+    Destination IP:       10.209.198.53
+    Destination Port:     57100
+    Subscription:         Su8
+    State:                Active
+    Encoding:             self-describing-gpb
+    Transport:            tcp
+    No TLS
+    Total bytes sent:     31666910
+    Total packets sent:   1096
+    Last Sent time:       2020-12-18 16:52:47.429043227 +0100
+
+    Collection Groups:
+    ------------------
+      Id: 31549
+      Sample Interval:      30000 ms
+    Encoding:             self-describing-gpb
+      Num of collection:    157
+      Collection time:      Min:     6 ms Max:    14 ms
+      Total time:           Min:     6 ms Max:    17 ms Avg:    10 ms
+      Total Deferred:       0
+      Total Send Errors:    0
+      Total Send Drops:     0
+      Total Other Errors:   0
+    No data Instances:    157
+      Last Collection Start:2020-12-18 16:52:45.427333227 +0100
+      Last Collection End:  2020-12-18 16:52:45.427343227 +0100
+      Sensor Path:          Cisco-IOS-XR-sysadmin-envmon-ui:environment/oper
+```
+
 ## Dashboards
 
 A sample dashboard is located at `./grafana-provisioning/dashboards/power.json`. This dashboard represents power consumption of several IOS-XR based device using Model Driven Telemetry with TCP and gRPC transports.
