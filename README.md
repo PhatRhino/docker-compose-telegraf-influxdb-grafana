@@ -7,7 +7,8 @@ Multi-container Docker app built from the following services:
 * [Chronograf](https://github.com/influxdata/chronograf) - admin UI for InfluxDB
 * [Grafana](https://github.com/grafana/grafana) - visualization UI for InfluxDB
 
-Useful for quickly setting up a Model Driven Telemetry stack.
+Useful for quickly setting up an ephemeral Model Driven Telemetry stack.  
+This project has been forked from [Jeff Kehres repository](https://github.com/jkehres/docker-compose-influxdb-grafana) to add missing pieces.
 
 ## Quick Start
 
@@ -49,7 +50,8 @@ ssh [options] <user>@<docker-host> -L 8888:localhost:8888 -N
 
 ## Volumes
 
-No volume is created. Data is  lost when the app is stopped.
+No volume is created or used in this ephemeral stack. Data is lost on purpose when the app is stopped. If you want to retain data (metrics, dashboards, etc.)  you can check how to implement volumes on [Jeff Kehres initial project](https://github.com/jkehres/docker-compose-influxdb-grafana).
+
 
 ## Users
 
@@ -62,7 +64,7 @@ The app creates two admin users - one for InfluxDB and one for Grafana. By defau
 
 ## Database
 
-The app creates a default InfluxDB database called `telemetry`.
+The app creates a default InfluxDB database called `telemetry`. No retention policy has been configured as metrics disappear as soon as the container is killed.
 
 ## Data Sources
 
@@ -72,6 +74,6 @@ To provision additional data sources, see the Grafana [documentation](http://doc
 
 ## Dashboards
 
-By default, the app does not create any Grafana dashboards. An example dashboard that's configured to work with [artillery-plugin-influxdb](https://github.com/Nordstrom/artillery-plugin-influxdb) is located at `./grafana-provisioning/dashboards/artillery.json.example`. To use this dashboard, rename it to `artillery.json`.
+A sample dashboard is located at `./grafana-provisioning/dashboards/power.json`. This dashboard represents power consumption of several IOS-XR based device using Model Driven Telemetry with TCP and gRPC transports.
 
 To provision additional dashboards, see the Grafana [documentation](http://docs.grafana.org/administration/provisioning/#dashboards) and add a config file to `./grafana-provisioning/dashboards/` before starting the app.
