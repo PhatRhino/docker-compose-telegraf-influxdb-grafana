@@ -43,7 +43,6 @@ services:
     container_name: telegraf
     restart: always
     ports:
-      - '57000:57000'
       - '57100:57100'
       - '57500:57500'
     environment:
