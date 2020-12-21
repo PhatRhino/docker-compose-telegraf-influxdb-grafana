@@ -37,7 +37,7 @@ The services in the app run on the following ports:
 | - | - |
 | 3000 | Grafana |
 | 8086 | InfluxDB |
-| 57000, 57100, 57500 | Telegraf |
+| 57100, 57500 | Telegraf |
 | 127.0.0.1:8888 | Chronograf |
 
 Note that Chronograf does not support username/password authentication. Anyone who can connect to the service has full admin access. Consequently, the service is not publically exposed and can only be access via the loopback interface on the same machine that runs docker.
