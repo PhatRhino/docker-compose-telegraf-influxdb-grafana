@@ -134,6 +134,6 @@ Fri Dec 18 16:53:04.763 CET
 
 ## Dashboards
 
-A sample dashboard is located at `./grafana-provisioning/dashboards/power.json`. This dashboard represents power consumption of several IOS-XR based device using Model Driven Telemetry with TCP and gRPC transports.
+A sample dashboard is located at `./grafana-provisioning/dashboards/power.json`. This dashboard represents power consumption of several IOS-XR based device using Model Driven Telemetry with TCP and gRPC transports. It's been used to write [this blog article on xrdocs.io](https://xrdocs.io/telemetry/tutorials/ios-xr-telemetry-power-consumption-docker-compose/)
 
 To provision additional dashboards, see the Grafana [documentation](http://docs.grafana.org/administration/provisioning/#dashboards) and add a config file to `./grafana-provisioning/dashboards/` before starting the app.
